@@ -10,13 +10,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - run: sudo apt-get update
+    - uses: actions/checkout@v3
       with:
         persist-credentials: false
-    - uses: lix-pm/setup-lix@master
-    - uses: HaxeFlixel/setup-flixel@master
+    - uses: krdlab/setup-haxe@v1
       with:
-        haxe-version: stable
+        haxe-version: "4.3.3"
+    - uses: HaxeFlixel/setup-flixel@v1
+      with:
+        haxe-version: current
         flixel-versions: dev
         target: html5
     - run: haxe --run Script flash ${{env.HAXELIB_REPO}}/flixel-demos/git
