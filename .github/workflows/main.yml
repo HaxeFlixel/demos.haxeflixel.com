@@ -19,7 +19,7 @@ jobs:
         haxe-version: stable
         flixel-versions: dev
         target: html5
-    - run: haxe --run Script flash ${{env.HAXELIB_REPO}}/flixel-demos/git
+    # - run: haxe --run Script flash ${{env.HAXELIB_REPO}}/flixel-demos/git
     - run: haxe --run Script html5 ${{env.HAXELIB_REPO}}/flixel-demos/git
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
