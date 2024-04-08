@@ -46,5 +46,12 @@ jobs:
             matrix:
                 demo-path: ${{ fromJson(needs.get-demos.outputs.result) }}
         steps:
-            - run: echo ${{ matrix.demo-path }}
+            - name: Checkout demos repository
+              uses: actions/checkout@v4
+              with:
+                repository: 'HaxeFlixel/flixel-demos'
+                submodules: 'recursive'
+                ref: 'dev'
+                clean: 'false'
+                sparse-checkout: ${{ matrix.demo-path }}
             - run: ls
