@@ -45,6 +45,6 @@ jobs:
         needs: get-demos
         strategy:
             matrix:
-                demo-path: ${{ fromJson(needs.find-demos.outputs.result) }}
+                demo-path: ${{ fromJson(needs.get-demos.outputs.result) }}
         steps:
             - run: echo ${{ matrix.demo-path }}
