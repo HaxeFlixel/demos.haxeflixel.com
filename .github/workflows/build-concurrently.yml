@@ -54,6 +54,13 @@ jobs:
                 ref: 'dev'
                 clean: 'false'
                 sparse-checkout: ${{ matrix.demo-path }}
+            - uses: lix-pm/setup-lix@master
+            - uses: HaxeFlixel/setup-flixel@v1
+              with:
+                haxe-version: stable
+                flixel-versions: dev
+                target: html5
             - run: |
                 cd ${{ matrix.demo-path }}
-                ls
+                haxelib run lime build html5 -- -final
+                ls -lR
