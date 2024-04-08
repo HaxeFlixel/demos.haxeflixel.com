@@ -20,8 +20,10 @@ module.exports = ({core}) => {
         const rootDir = "./demos/";
 
         findProjectXmlFiles(rootDir);
-        projectPaths = projectPaths.map((dir) => {dir.replace("demos/", ""); return dir;});
+
+        projectPaths = projectPaths.map((dir) => {return dir.replace("demos/", "");});
         console.log(projectPaths);
+        
         return projectPaths;
       } catch (error) {
         core.setFailed(error.message);
