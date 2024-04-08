@@ -57,6 +57,13 @@ jobs:
             matrix:
                 demo-path: ${{ fromJson(needs.get-demos.outputs.result) }}
         steps:
+            - name: Get Demo Name
+              uses: actions/github-script@v7
+              id: demo-name
+              with:
+                retries: 3
+                script: |
+                    return ${{ matrix.demo-path }}.split('/').pop();
             - name: Checkout demos repository
               uses: actions/checkout@v4
               with:
@@ -74,4 +81,19 @@ jobs:
                 cd ${{ matrix.demo-path }}
                 haxelib run lime build html5 -- -final
                 ls -lR
+            - run: ls -lR
+            - run: mv ${{ matrix.demo-path }}/export/html5/bin ${{steps.demo-name.outputs.result}}
+            - name: 'Upload Artifact'
+              uses: actions/upload-artifact@v4
+              with:
+                name: ${{matrix.demo-path}}
+                path: ${{steps.demo-name.outputs.result}}
+                retention-days: 1
+                compression-level: 5
+    publish-site:
+        runs-on: ubuntu-latest
+        needs: build-demo
+        steps:
+            - name: Download Artifacts
+              uses: actions/download-artifact@v2
             - run: ls -lR
