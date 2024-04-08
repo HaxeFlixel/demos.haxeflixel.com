@@ -12,17 +12,16 @@ module.exports = ({core}) => {
                 if (item.isDirectory())
                     findProjectXmlFiles(fullPath);
                 else if (item.isFile() && item.name.match(/project.xml/i))
-                {
-                    dir.replace("demos/", "");
                     projectPaths.push(dir);
-                }    
+            
             }
         }
 
         const rootDir = "./demos/";
 
         findProjectXmlFiles(rootDir);
-
+        projectPaths = projectPaths.map((dir) => {dir.replace("demos/", ""); return dir;});
+        console.log(projectPaths);
         return projectPaths;
       } catch (error) {
         core.setFailed(error.message);
