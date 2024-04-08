@@ -104,5 +104,10 @@ jobs:
               uses: actions/download-artifact@v4
             - run: |
                 mkdir html5
-                mv * html5
+                for d in */; do
+                    if [ "$d" != "html5/" ]; then
+                        mv "$d" html5/
+                    fi
+                done
+              shell: bash
             - run: ls -lR
