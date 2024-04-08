@@ -81,15 +81,18 @@ jobs:
                 cd ${{ matrix.demo-path }}
                 haxelib run lime build html5 -- -final
                 ls -lR
-            - run: ls -lR
-            - run: mv ${{ matrix.demo-path }}/export/html5/bin ${{steps.demo-name.outputs.result}}
+            
+            - name: Move export to new folder
+              run: |
+                mkdir ${{steps.demo-name.outputs.result}}
+                mv ${{ matrix.demo-path }}/export/html5/bin ${{steps.demo-name.outputs.result}}
             - name: 'Upload Artifact'
               uses: actions/upload-artifact@v4
               with:
                 name: ${{matrix.demo-path}}
                 path: ${{steps.demo-name.outputs.result}}
                 retention-days: 1
-                compression-level: 5
+                compression-level: 1
     publish-site:
         runs-on: ubuntu-latest
         needs: build-demo
