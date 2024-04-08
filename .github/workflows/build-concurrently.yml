@@ -63,7 +63,7 @@ jobs:
               with:
                 retries: 3
                 script: |
-                    return ${{ matrix.demo-path }}.split('/').pop();
+                    return '${{ matrix.demo-path }}'.split('/').pop();
             - name: Checkout demos repository
               uses: actions/checkout@v4
               with:
