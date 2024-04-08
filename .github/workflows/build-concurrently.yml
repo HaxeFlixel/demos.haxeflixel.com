@@ -54,4 +54,4 @@ jobs:
                 ref: 'dev'
                 clean: 'false'
                 sparse-checkout: ${{ matrix.demo-path }}
-            - run: ls
+            - run: cd demos
