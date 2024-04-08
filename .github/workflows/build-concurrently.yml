@@ -9,6 +9,8 @@ on:
 jobs:
     get-demos:
         runs-on: ubuntu-latest
+        outputs:
+            result: ${{ steps.find-demos.outputs.result }}
         steps:
             - name: Checkout repository
               uses: actions/checkout@v4
@@ -27,16 +29,22 @@ jobs:
               uses: actions/github-script@v7
               id: find-demos
               with:
-                result-encoding: string
                 retries: 3
                 script: |
+                  // runs the script to get all the demo folders
+                  // and returns the output, which will be an array
+                  // of paths
+                  // note: actions/github-script will encode the result
+                  // in JSON! we decode it later
+                  
                   const script = require("./js/getDemos.js");
-                  script({core});
+                  return script({core});
+                
     build-demo:
         runs-on: ubuntu-latest
         needs: get-demos
         strategy:
             matrix:
-                demo-path: ${{ fromJson(needs.get-demos.outputs.project-paths) }}
+                demo-path: ${{ fromJson(needs.find-demos.outputs.result) }}
         steps:
             - run: echo ${{ matrix.demo-path }}

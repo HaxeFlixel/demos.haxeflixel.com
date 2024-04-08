@@ -20,8 +20,7 @@ module.exports = ({core}) => {
 
         findProjectXmlFiles(rootDir);
 
-        core.setOutput('project-paths', JSON.stringify(projectPaths));
-        console.log('project-paths:', JSON.stringify(projectPaths));
+        return projectPaths;
       } catch (error) {
         core.setFailed(error.message);
       }
