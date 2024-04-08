@@ -24,6 +24,17 @@ jobs:
                 ref: 'dev'
                 clean: 'false'
                 path: 'demos'
+            - uses: actions/cache@v4
+              with:
+                path: /home/runner/haxe/haxelib
+                key: haxelib-${{ runner.os }}
+            - uses: lix-pm/setup-lix@master
+            - uses: HaxeFlixel/setup-flixel@v1
+              with:
+                haxe-version: stable
+                flixel-versions: dev
+                target: html5
+            
             - name: Find all demo folders
               uses: actions/github-script@v7
               id: find-demos
@@ -55,11 +66,10 @@ jobs:
                 clean: 'false'
                 sparse-checkout: ${{ matrix.demo-path }}
             - uses: lix-pm/setup-lix@master
-            - uses: HaxeFlixel/setup-flixel@v1
+            - uses: actions/cache@v4
               with:
-                haxe-version: stable
-                flixel-versions: dev
-                target: html5
+                path: /home/runner/haxe/haxelib
+                key: haxelib-${{ runner.os }}
             - run: |
                 cd ${{ matrix.demo-path }}
                 haxelib run lime build html5 -- -final
