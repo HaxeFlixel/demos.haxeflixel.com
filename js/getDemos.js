@@ -12,7 +12,7 @@ module.exports = ({core}) => {
                 if (item.isDirectory())
                     findProjectXmlFiles(fullPath);
                 else if (item.isFile() && item.name.match(/project.xml/i))
-                    projectPaths.push(fullPath);
+                    projectPaths.push(dir);
             }
         }
 
