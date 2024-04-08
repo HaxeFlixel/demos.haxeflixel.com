@@ -21,6 +21,7 @@ jobs:
                 submodules: 'recursive'
                 ref: 'dev'
                 clean: 'false'
+                path: 'demos'
             - run: ls
             - name: Find all demo folders
               uses: actions/github-script@v7
@@ -29,7 +30,7 @@ jobs:
                 result-encoding: string
                 retries: 3
                 script: |
-                  const script = require("./js/getDemos.js");
+                  const script = require("./main/js/getDemos.js");
                   script({core});
     build-demo:
         runs-on: ubuntu-latest
