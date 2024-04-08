@@ -11,7 +11,7 @@ module.exports = ({core}) => {
                 const fullPath = path.join(dir, item.name);
                 if (item.isDirectory())
                     findProjectXmlFiles(fullPath);
-                else if (item.isFile() && item.name === 'project.xml')
+                else if (item.isFile() && item.name.match(/project.xml/i))
                     projectPaths.push(fullPath);
             }
         }
