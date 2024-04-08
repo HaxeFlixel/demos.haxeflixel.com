@@ -6,6 +6,7 @@ module.exports = ({core}) => {
         const demos = fs.readdirSync('.').filter(file => fs.statSync(file).isDirectory());
         const projectPaths = demos.map(demo => path.join(demo, 'project.xml'));
         core.setOutput('project-paths', projectPaths.join('\n'));
+        console.log('project-paths:', projectPaths.join('\n'));
       } catch (error) {
         core.setFailed(error.message);
       }
