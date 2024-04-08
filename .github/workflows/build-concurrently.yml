@@ -61,6 +61,7 @@ jobs:
               uses: actions/github-script@v7
               id: demo-name
               with:
+                result-encoding: string
                 retries: 3
                 script: |
                     return '${{ matrix.demo-path }}'.split('/').pop();
@@ -85,13 +86,13 @@ jobs:
             - name: Move export to new folder
               run: |
                 mkdir ${{steps.demo-name.outputs.result}}
-                mv ${{ matrix.demo-path }}/export/html5/bin ${{steps.demo-name.outputs.result}}
+                mv ${{ matrix.demo-path }}/export/html5/bin/* ${{steps.demo-name.outputs.result}}
             - run: ls -lR
             - name: 'Upload Artifact'
               uses: actions/upload-artifact@v4
               with:
                 name: ${{matrix.demo-path}}
-                path: ${{steps.demo-name.outputs.result}}
+                path: ${{steps.demo-name.outputs.result}}/
                 retention-days: 1
                 compression-level: 1
     publish-site:
