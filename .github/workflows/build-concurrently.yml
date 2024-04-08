@@ -102,4 +102,7 @@ jobs:
         steps:
             - name: Download Artifacts
               uses: actions/download-artifact@v4
+            - run: |
+                mkdir html5
+                mv * html5
             - run: ls -lR
