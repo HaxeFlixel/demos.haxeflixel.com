@@ -52,11 +52,9 @@ jobs:
                 
     build-demo:
         runs-on: ubuntu-latest
-        concurrency:
-            group: demos
-            cancel-in-progress: false
         needs: get-demos
         strategy:
+            fail-fast: false
             matrix:
                 demo-path: ${{ fromJson(needs.get-demos.outputs.result) }}
         steps:
