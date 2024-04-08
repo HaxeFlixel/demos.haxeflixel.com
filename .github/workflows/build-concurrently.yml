@@ -86,6 +86,7 @@ jobs:
               run: |
                 mkdir ${{steps.demo-name.outputs.result}}
                 mv ${{ matrix.demo-path }}/export/html5/bin ${{steps.demo-name.outputs.result}}
+            - run: ls -lR
             - name: 'Upload Artifact'
               uses: actions/upload-artifact@v4
               with:
