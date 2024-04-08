@@ -64,3 +64,4 @@ jobs:
                 cd ${{ matrix.demo-path }}
                 haxelib run lime build html5 -- -final
                 ls -lR
+            - run: ls -lR
