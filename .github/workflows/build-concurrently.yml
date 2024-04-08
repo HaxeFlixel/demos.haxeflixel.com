@@ -52,6 +52,9 @@ jobs:
                 
     build-demo:
         runs-on: ubuntu-latest
+        concurrency:
+            group: demos
+            cancel-in-progress: false
         needs: get-demos
         strategy:
             matrix:
@@ -91,7 +94,7 @@ jobs:
             - name: 'Upload Artifact'
               uses: actions/upload-artifact@v4
               with:
-                name: ${{matrix.demo-path}}
+                name: ${{steps.demo-name.outputs.result}}
                 path: ${{steps.demo-name.outputs.result}}/
                 retention-days: 1
                 compression-level: 1
